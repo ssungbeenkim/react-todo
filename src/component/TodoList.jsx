@@ -28,7 +28,7 @@ export default function TodoList({ filter }) {
           <Todo
             key={item.id}
             todo={item}
-            onUpdate={handleUpdate} // checkbox
+            onUpdate={handleUpdate} 
             onDelete={handleDelete}
           />
         ))}
