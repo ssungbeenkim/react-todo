@@ -1,16 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddTodo from './AddTodo/AddTodo';
 import Todo from './Todo/Todo';
 import styles from './TodoList.module.css';
 
 export default function TodoList({ filter }) {
-  const [todos, setTodos] = useState([
-    { id: '123', text: '장보기', status: 'active' },
-    { id: '124', text: '공부하기', status: 'active' },
-    { id: '125', text: '공부하기', status: 'active' },
-    { id: '126', text: '공부하기', status: 'active' },
-  ]);
+  const [todos, setTodos] = useState(readTodos);
   const handleAdd = (todo) => {
     setTodos([...todos, todo]);
   };
@@ -20,6 +15,10 @@ export default function TodoList({ filter }) {
   const handleDelete = (deleted) => {
     setTodos(todos.filter((t) => t.id !== deleted.id));
   };
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
   const filtered = getFilteredItems(todos, filter);
   return (
     <section className={styles.container}>
@@ -28,7 +27,7 @@ export default function TodoList({ filter }) {
           <Todo
             key={item.id}
             todo={item}
-            onUpdate={handleUpdate} 
+            onUpdate={handleUpdate}
             onDelete={handleDelete}
           />
         ))}
@@ -36,6 +35,11 @@ export default function TodoList({ filter }) {
       <AddTodo onAdd={handleAdd} />
     </section>
   );
+}
+
+function readTodos() {
+  const todos = localStorage.getItem('todos');
+  return todos ? JSON.parse(todos) : [];
 }
 
 function getFilteredItems(todos, filter) {
