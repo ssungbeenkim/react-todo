@@ -10,6 +10,8 @@ export default function Todo({ todo, onUpdate, onDelete }) {
   const handleDelete = () => {
     onDelete(todo);
   };
+
+
   return (
     <li className={styles.todo}>
       <input
