@@ -1,3 +1,7 @@
+# Todo App
+
+다크모드를 지원하는 Todo App
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
